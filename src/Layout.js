@@ -3,10 +3,18 @@ import './App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginContainer from './Login';
 import Submit from './Submit';
-import { Col, Row, Container } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import GetTimes from './GetTimes';
 
 class Layout extends Component {
+    constructor(props) {
+        super(props);
+
+        this.Login = this.setLogin.bind(this);
+
+        this.state = { login: [] }
+    }
+
     setLogin(login) {
         this.setState({ login: login });
     }
@@ -21,7 +29,7 @@ class Layout extends Component {
                     <div><Submit /></div>
                 </Col>
                 <Col md={4}>
-                    <div><GetTimes /></div>
+                    <div><GetTimes login={this.state.login} /></div>
                 </Col>
             </Row>
         )
