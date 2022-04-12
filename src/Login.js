@@ -20,6 +20,7 @@ class FluidInput extends Component {
         this.setState({
             value: value
         });
+        this.props.setValue()
     }
     render() {
         const { type, label, style, id } = this.props;
@@ -64,19 +65,46 @@ class Button extends Component {
 }
 
 class LoginContainer extends Component {
-    render() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: "",
+            password: ""
+        };
+    }
 
+    setEmail(email) {
+        this.setState({ email: email })
+    }
+
+    setPassword(password) {
+        this.setState({ password: password })
+    }
+
+    verifyLogin(email, password) {
+        return true
+    }
+
+    login() {
+        let email = this.state.email
+        let password = this.state.password
+        if (this.verifyLogin(email, password)) {
+            this.props.setLogin(email)
+        }
+    }
+
+    render() {
         const style = {
             margin: "15px 0"
         };
         return (
             <div className="login-container">
                 <div className="title">
-                    Login
+                    {this.props.name}
                 </div>
-                <FluidInput type="text" label="name" id="name" style={style} />
-                <FluidInput type="password" label="password" id="password" style={style} />
-                <Button buttonText="log in" buttonClass="login-button" />
+                <FluidInput type="text" label="email" id="name" style={style} setValue={this.setEmail} />
+                <FluidInput type="password" label="password" id="password" style={style} setValue={this.setPassword} />
+                <Button buttonText="log in" buttonClass="login-button" onClick={this.login} />
             </div>
         );
     }

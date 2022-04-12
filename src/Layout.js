@@ -10,26 +10,64 @@ class Layout extends Component {
     constructor(props) {
         super(props);
 
-        this.Login = this.setLogin.bind(this);
+        this.ADOLogin = this.setADOLogin.bind(this);
+        this.AthleteLogin = this.setAthleteLogin.bind(this);
 
-        this.state = { login: [] }
+        this.state = { athleteLogin: "a", adoLogin: "a" }
     }
 
-    setLogin(login) {
-        this.setState({ login: login });
+    setADOLogin = (login) => {
+        this.setState({ adoLogin: login });
+    }
+
+    setAthleteLogin = (login) => {
+        this.setState({ athleteLogin: login });
+    }
+
+    submit() {
+        if (this.state.athleteLogin !== "") {
+            return (
+                <Col md={4}>
+                    <Submit email={this.state.athleteLogin} />
+                </Col>
+            )
+        }
+        else {
+            return (
+                <Col md={4}>
+                    <LoginContainer name={"Athlete Login"} setLogin={this.setAthleteLogin} />
+                </Col>
+            )
+        }
+    }
+
+    times() {
+        console.log("Hello there")
+        console.log(this.state.adoLogin)
+        if (this.state.adoLogin !== "") {
+            return (
+                <Col md={4}>
+                    <GetTimes email={this.state.adoLogin} />
+                </Col>
+            )
+        }
+        else {
+            return (
+                <Col md={4}>
+                    <LoginContainer name={"Athlete Login"} setLogin={this.setADOLogin} />
+                </Col>
+            )
+        }
     }
 
     render() {
         return (
-            <Row md={4}>
+            <Row>
                 <Col md={4}>
-                    <div><LoginContainer /></div>
+                    {this.submit()}
                 </Col>
                 <Col md={4}>
-                    <div><Submit /></div>
-                </Col>
-                <Col md={4}>
-                    <div><GetTimes login={this.state.login} /></div>
+                    {this.times()}
                 </Col>
             </Row>
         )

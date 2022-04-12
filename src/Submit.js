@@ -1,7 +1,6 @@
 import { useState } from "react";
 import DateTimePicker from 'react-datetime-picker';
-import { Col, Container } from "react-bootstrap";
-import { Button } from "bootstrap";
+import { Col } from "react-bootstrap";
 
 function Submit() {
     const [message, setMessage] = useState("");
@@ -31,7 +30,7 @@ function Submit() {
 
     return (
         <div className="Submit">
-            <Col fluid>
+            <Col fluid="true">
 
                 <DateTimePicker onChange={onChange} value={value} />
 
