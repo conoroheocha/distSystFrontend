@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
 import DateTimePicker from 'react-datetime-picker';
 import DatePicker from "react-date-picker";
 import { Col, Container } from "react-bootstrap";
@@ -6,6 +6,8 @@ import { Button } from "bootstrap";
 import {Map, TitleLayer} from "react-leaflet";
 import osm from "./osm-providers";
 import "leaflet/dist/leaflet.css";
+
+
 
 
 function Submit() {
@@ -54,14 +56,25 @@ function Submit() {
                 scrollableMonthYearDropdown
                 />
 
-                <Map
-                    center={center}
-                    zoom={ZOOM_LEVEL}
-                    ref={mapRef}
-                >
-                    <TitleLayer url={osm.maptiler.url} attribution={osm.maptiler.attribution} />
-                </Map>
-
+                
+                    
+                    <div classname="row">
+                        <div classname="col text-center">
+                            <h2>Openstreet Maps</h2>
+                            <p>Loading maps</p>
+                            <div className="col">
+                                <Map
+                                    center={center}
+                                    zoom={ZOOM_LEVEL}
+                                    ref={mapRef}
+                                >
+                                    <TitleLayer 
+                                        url={osm.maptiler.url} 
+                                        attribution={osm.maptiler.attribution} />
+                                </Map>
+                            </div>
+                        </div>
+                    </div>
 
                
 
