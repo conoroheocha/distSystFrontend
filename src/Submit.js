@@ -1,11 +1,22 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import DateTimePicker from 'react-datetime-picker';
+import DatePicker from "react-date-picker";
 import { Col, Container } from "react-bootstrap";
 import { Button } from "bootstrap";
+import {Map, TitleLayer} from "react-leaflet";
+import osm from "./osm-providers";
+import "leaflet/dist/leaflet.css";
+
 
 function Submit() {
     const [message, setMessage] = useState("");
     const [value, onChange] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const[center, setCenter] = useState({lat: 40.730610, lng: -73.935242});
+    const ZOOM_LEVEL = 9;
+    // eslint-disable-next-line no-undef
+    const mapRef = useRef();
+
 
     let handleSubmit = async (e) => {
         e.preventDefault();
@@ -33,7 +44,26 @@ function Submit() {
         <div className="Submit">
             <Col fluid>
 
-                <DateTimePicker onChange={onChange} value={value} />
+                <DateTimePicker selected={selectedDate} 
+                onChange={onChange} value={value}
+                dateFormat = 'dd/MM/yyyy HH:mm'
+                minDate={new Date()}
+                isClearable
+                showYearDropdown
+                showMonthDropdown
+                scrollableMonthYearDropdown
+                />
+
+                <Map
+                    center={center}
+                    zoom={ZOOM_LEVEL}
+                    ref={mapRef}
+                >
+                    <TitleLayer url={osm.maptiler.url} attribution={osm.maptiler.attribution} />
+                </Map>
+
+
+               
 
                 <form onSubmit={handleSubmit}>
                     <button type="submit">Submit</button>

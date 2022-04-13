@@ -28,7 +28,7 @@ class FluidInput extends Component {
         let inputClass = "fluid-input";
         if (focused) {
             inputClass += " fluid-input--focus";
-        } else if (value != "") {
+        } else if (value !== "") {
             inputClass += " fluid-input--open";
         }
 
