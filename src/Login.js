@@ -71,6 +71,10 @@ class LoginContainer extends Component {
             email: "",
             password: ""
         };
+
+        this.setEmail = this.setEmail.bind(this);
+        this.setPassword = this.setPassword.bind(this);
+        this.login = this.login.bind(this);
     }
 
     setEmail(email) {

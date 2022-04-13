@@ -3,17 +3,17 @@ import './App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginContainer from './Login';
 import Submit from './Submit';
-import { Col, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import GetTimes from './GetTimes';
 
 class Layout extends Component {
     constructor(props) {
         super(props);
 
-        this.ADOLogin = this.setADOLogin.bind(this);
-        this.AthleteLogin = this.setAthleteLogin.bind(this);
+        this.setADOLogin = this.setADOLogin.bind(this);
+        this.setAthleteLogin = this.setAthleteLogin.bind(this);
 
-        this.state = { athleteLogin: "a", adoLogin: "a" }
+        this.state = { athleteLogin: "", adoLogin: "" }
     }
 
     setADOLogin = (login) => {
@@ -27,14 +27,14 @@ class Layout extends Component {
     submit() {
         if (this.state.athleteLogin !== "") {
             return (
-                <Col md={4}>
+                <Col>
                     <Submit email={this.state.athleteLogin} />
                 </Col>
             )
         }
         else {
             return (
-                <Col md={4}>
+                <Col>
                     <LoginContainer name={"Athlete Login"} setLogin={this.setAthleteLogin} />
                 </Col>
             )
@@ -46,15 +46,15 @@ class Layout extends Component {
         console.log(this.state.adoLogin)
         if (this.state.adoLogin !== "") {
             return (
-                <Col md={4}>
+                <Col>
                     <GetTimes email={this.state.adoLogin} />
                 </Col>
             )
         }
         else {
             return (
-                <Col md={4}>
-                    <LoginContainer name={"Athlete Login"} setLogin={this.setADOLogin} />
+                <Col>
+                    <LoginContainer name={"ADO Login"} setLogin={this.setADOLogin} />
                 </Col>
             )
         }
@@ -62,14 +62,16 @@ class Layout extends Component {
 
     render() {
         return (
-            <Row>
-                <Col md={4}>
-                    {this.submit()}
-                </Col>
-                <Col md={4}>
-                    {this.times()}
-                </Col>
-            </Row>
+            <Container fluid="true">
+                <Row>
+                    <Col>
+                        {this.submit()}
+                    </Col>
+                    <Col>
+                        {this.times()}
+                    </Col>
+                </Row>
+            </Container>
         )
     }
 }
