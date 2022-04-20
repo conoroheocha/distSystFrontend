@@ -1,0 +1,1 @@
+export const loginUrl = "http://localhost:5000"

@@ -35,7 +35,7 @@ class Layout extends Component {
         else {
             return (
                 <Col>
-                    <LoginContainer name={"Athlete Login"} setLogin={this.setAthleteLogin} />
+                    <LoginContainer name={"Athlete Login"} setLogin={this.setAthleteLogin} type={"/loginAthlete"} />
                 </Col>
             )
         }
@@ -54,7 +54,7 @@ class Layout extends Component {
         else {
             return (
                 <Col>
-                    <LoginContainer name={"ADO Login"} setLogin={this.setADOLogin} />
+                    <LoginContainer name={"ADO Login"} setLogin={this.setADOLogin} type={"/loginAdo"} />
                 </Col>
             )
         }

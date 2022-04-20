@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { loginUrl } from "./config"
 
 class FluidInput extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class FluidInput extends Component {
         this.setState({
             value: value
         });
-        this.props.setValue()
+        this.props.setValue(value)
     }
     render() {
         const { type, label, style, id } = this.props;
@@ -85,8 +86,30 @@ class LoginContainer extends Component {
         this.setState({ password: password })
     }
 
-    verifyLogin(email, password) {
-        return true
+    async verifyLogin(email, password) {
+        const loginType = this.props.type
+
+        try {
+            await fetch(loginUrl + loginType, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                }),
+            }).then(response => {
+                if (response.status === 200) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            )
+
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     login() {

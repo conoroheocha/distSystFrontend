@@ -6,7 +6,6 @@ class GetTimes extends Component {
         this.state = {
             records: []
         }
-
     }
 
     componentDidMount() {
@@ -23,7 +22,13 @@ class GetTimes extends Component {
     renderListing() {
         let recordList = []
         this.state.records.map(record => {
-            return recordList.push(<li key={record.id}>{record.name}</li>)
+            return recordList.push(<tr key={record.id}><th style={{
+                border: "1px solid #ddd",
+                padding: "8px"
+            }}>{record.name}</th><th style={{
+                border: "1px solid #ddd",
+                padding: "8px"
+            }}>{record.email}</th></tr>)
         })
 
         return recordList;
@@ -31,9 +36,7 @@ class GetTimes extends Component {
 
     render() {
         return (
-            <ul>
-                {this.renderListing()}
-            </ul>
+            <table style={{ border: "1px solid black" }}>{this.renderListing()}</table>
         );
     }
 }
