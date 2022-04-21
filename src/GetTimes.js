@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Col, Row } from "react-bootstrap";
 import { getTimesUrl } from "./config"
 
 class GetTimes extends Component {
@@ -7,10 +8,18 @@ class GetTimes extends Component {
         this.state = {
             records: []
         }
+        this.state = { athleteEmail: '' };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentDidMount() {
-        this.fetchData()
+    handleChange(event) {
+        this.setState({ athleteEmail: event.target.value });
+    }
+
+    handleSubmit(event) {
+        alert('A name was submitted: ' + this.state.athleteEmail);
+        event.preventDefault();
     }
 
     async fetchData() {
@@ -19,7 +28,7 @@ class GetTimes extends Component {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    ADO_email: "lindamartinez@example.com",
+                    ADO_email: this.props.email,
                     Athlete_email: "brandicollins@example.net"
                 }),
             })
@@ -72,9 +81,36 @@ class GetTimes extends Component {
         return recordList;
     }
 
+    showTable() {
+        if (this.state.records) {
+            <Row>
+                <table style={{ border: "1px solid black" }}>{this.renderListing()}</table>
+            </Row>
+        }
+        return <div>No athlete yet</div>
+    }
+
     render() {
         return (
-            <table style={{ border: "1px solid black" }}>{this.renderListing()}</table>
+            <Col>
+                <Row>
+                    <form onSubmit={this.handleSubmit}>
+                        <label>
+                            Athlete Email:
+                            <input type="text" value={this.state.athleteEmail} onChange={this.handleChange} />
+                        </label>
+                        <input type="submit" value="Submit" />
+                    </form>
+                </Row>
+
+                {this.showTable()}
+
+            </Col>
+
+
+
+
+
         );
     }
 }
