@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { getTimesUrl } from "./config"
 
 class GetTimes extends Component {
     constructor(props) {
@@ -9,28 +10,65 @@ class GetTimes extends Component {
     }
 
     componentDidMount() {
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then(response => response.json())
-            .then(records => {
-                this.setState({
-                    records: records
-                })
+        this.fetchData()
+    }
+
+    async fetchData() {
+        try {
+            await fetch(getTimesUrl + "/read", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    ADO_email: "lindamartinez@example.com",
+                    Athlete_email: "brandicollins@example.net"
+                }),
             })
-            .catch(error => console.log(error))
+                .then(response => response.json())
+                .then(data => {
+                    if (true) {
+                        this.setState({ records: data })
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                )
+
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     renderListing() {
-        let recordList = []
+        let recordList = [<tr>
+            <th style={{
+                border: "1px solid #ddd",
+                padding: "8px"
+            }}><h3>Time</h3></th>
+            <th style={{
+                border: "1px solid #ddd",
+                padding: "8px"
+            }}><h3>Latitude</h3></th>
+            <th style={{
+                border: "1px solid #ddd",
+                padding: "8px"
+            }}><h3>Longitude</h3></th>
+        </tr>]
         this.state.records.map(record => {
-            return recordList.push(<tr key={record.id}><th style={{
-                border: "1px solid #ddd",
-                padding: "8px"
-            }}>{record.name}</th><th style={{
-                border: "1px solid #ddd",
-                padding: "8px"
-            }}>{record.email}</th></tr>)
+            return recordList.push(
+                <tr key={record.time_slot_start}>
+                    <th style={{
+                        border: "1px solid #ddd",
+                        padding: "8px"
+                    }}>{Date(record.time_slot_start)}</th>
+                    <th style={{
+                        border: "1px solid #ddd",
+                        padding: "8px"
+                    }}>{record.location.lat}</th><th style={{
+                        border: "1px solid #ddd",
+                        padding: "8px"
+                    }}>{record.location.lng}</th></tr>)
         })
-
         return recordList;
     }
 

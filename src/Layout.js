@@ -42,8 +42,6 @@ class Layout extends Component {
     }
 
     times() {
-        console.log("Hello there")
-        console.log(this.state.adoLogin)
         if (this.state.adoLogin !== "") {
             return (
                 <Col>
