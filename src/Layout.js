@@ -17,6 +17,7 @@ class Layout extends Component {
     }
 
     setADOLogin = (login) => {
+        console.log(login)
         this.setState({ adoLogin: login });
     }
 

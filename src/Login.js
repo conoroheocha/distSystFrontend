@@ -98,6 +98,7 @@ class LoginContainer extends Component {
                     password: password
                 }),
             }).then(response => {
+                console.log(response.status)
                 if (response.status === 200) {
                     return true;
                 }
@@ -110,12 +111,13 @@ class LoginContainer extends Component {
         } catch (err) {
             console.log(err);
         }
+        return false
     }
 
-    login() {
+    async login() {
         let email = this.state.email
         let password = this.state.password
-        if (this.verifyLogin(email, password)) {
+        if (await this.verifyLogin(email, password)) {
             this.props.setLogin(email)
         }
     }
