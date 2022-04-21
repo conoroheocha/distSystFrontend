@@ -70,7 +70,8 @@ class LoginContainer extends Component {
         super(props);
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            show: false
         };
 
         this.setEmail = this.setEmail.bind(this);
@@ -100,10 +101,11 @@ class LoginContainer extends Component {
             }).then(response => {
                 console.log(response.status)
                 if (response.status === 200) {
-                    return true;
+                    console.log("hello")
+                    this.setState({ show: true })
                 }
                 else {
-                    return false;
+                    this.setState({ show: false })
                 }
             }
             )
@@ -111,13 +113,14 @@ class LoginContainer extends Component {
         } catch (err) {
             console.log(err);
         }
-        return false
     }
 
     async login() {
         let email = this.state.email
         let password = this.state.password
-        if (await this.verifyLogin(email, password)) {
+        await this.verifyLogin(email, password)
+        if (this.state.show) {
+            console.log("set")
             this.props.setLogin(email)
         }
     }
